@@ -1,0 +1,20 @@
+{
+    "nom": "#string",
+    "prenom": "#string",
+    "email": "#string",
+    "adresse": "#string",
+    "telephone": "#string",
+    "genre": {"id": "#number"},
+    "nationalite": {"id": "#number"},
+    "codeAppoge": "#string",
+    "filiere": {"id": "#number"}
+
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+{
+    "nom": "#string",
+    "contenu": "#string",
+    "taille": "#number",
+    "typePiecesAttachement": {"id": "#number"},
+    "stage": {"id": "#number"}
+
+}
+
+
+
+
+
+
+
+

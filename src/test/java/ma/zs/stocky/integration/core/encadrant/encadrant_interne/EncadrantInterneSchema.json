@@ -1,0 +1,19 @@
+{
+    "code": "#string",
+    "nom": "#string",
+    "prenom": "#string",
+    "email": "#string",
+    "biographie": "#string",
+    "telephone": "#string",
+    "genre": {"id": "#number"},
+    "nationalit": {"id": "#number"}
+
+}
+
+
+
+
+
+
+
+
