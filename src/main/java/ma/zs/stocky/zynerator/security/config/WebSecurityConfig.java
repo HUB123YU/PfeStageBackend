@@ -62,19 +62,7 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/login").permitAll()
-                                .requestMatchers("/actuator/health").permitAll()
-                                .requestMatchers("/actuator/info").permitAll()
-                                .requestMatchers("/api/open/**").permitAll()
-                                .requestMatchers("/api/user/**").permitAll()
-                                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // Permit access to Swagger UI and API docs
-                                .requestMatchers("/api/admin/login").permitAll()
-                                .requestMatchers("/api/encadrant/login").permitAll()
-                                .requestMatchers("/api/etudiant/login").permitAll()
-                                .requestMatchers("/api/admin/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/api/encadrant/**").hasAnyAuthority(AuthoritiesConstants.ENCADRANT)
-                                .requestMatchers("/api/etudiant/**").hasAnyAuthority(AuthoritiesConstants.ETUDIANT)
-                               .anyRequest().authenticated()
+                               .anyRequest().permitAll()
 
                 );
 

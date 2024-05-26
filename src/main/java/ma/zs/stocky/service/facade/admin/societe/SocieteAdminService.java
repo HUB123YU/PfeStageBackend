@@ -9,7 +9,9 @@ import ma.zs.stocky.zynerator.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface SocieteAdminService {
-
+    List<Societe> findByDomaineId(Long id);
+    int deleteByDomaineId(Long id);
+    long countByDomaineId(Long id);
 
 
     List<Societe> findByVilleId(Long id);

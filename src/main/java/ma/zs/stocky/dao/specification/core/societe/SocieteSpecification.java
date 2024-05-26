@@ -14,7 +14,6 @@ public class SocieteSpecification extends  AbstractSpecification<SocieteCriteria
         addPredicate("nom", criteria.getNom(),criteria.getNomLike());
         addPredicate("adresse", criteria.getAdresse(),criteria.getAdresseLike());
         addPredicate("fax", criteria.getFax(),criteria.getFaxLike());
-        addPredicate("domaine", criteria.getDomaine(),criteria.getDomaineLike());
         addPredicate("email", criteria.getEmail(),criteria.getEmailLike());
         addPredicate("telephone", criteria.getTelephone(),criteria.getTelephoneLike());
         addPredicate("codePostal", criteria.getCodePostal(),criteria.getCodePostalLike());
@@ -27,6 +26,9 @@ public class SocieteSpecification extends  AbstractSpecification<SocieteCriteria
         addPredicateFk("pays","id", criteria.getPays()==null?null:criteria.getPays().getId());
         addPredicateFk("pays","id", criteria.getPayss());
         addPredicateFk("pays","reference", criteria.getPays()==null?null:criteria.getPays().getReference());
+    addPredicateFk("domaine","id", criteria.getDomaine()==null?null:criteria.getDomaine().getId());
+        addPredicateFk("domaine","id", criteria.getDomaines());
+        addPredicateFk("domaine","code", criteria.getDomaine()==null?null:criteria.getDomaine().getCode());
     }
 
     public SocieteSpecification(SocieteCriteria criteria) {

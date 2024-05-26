@@ -1,6 +1,7 @@
 package ma.zs.stocky.service.impl.etudiant.societe;
 
 
+import ma.zs.stocky.service.facade.encadrant.departement.DomaineEncadrantService;
 import ma.zs.stocky.zynerator.exception.EntityNotFoundException;
 import ma.zs.stocky.bean.core.societe.Societe;
 import ma.zs.stocky.dao.criteria.core.societe.SocieteCriteria;
@@ -35,6 +36,19 @@ import java.util.List;
 @Service
 public class SocieteEtudiantServiceImpl implements SocieteEtudiantService {
 
+    public List<Societe> findByDomaineId(Long id) {
+        return dao.findByDomaineId(id);
+    }
+
+
+    public int deleteByDomaineId(Long id) {
+        return dao.deleteByDomaineId(id);
+    }
+
+
+    public long countByDomaineId(Long id) {
+        return dao.countByDomaineId(id);
+    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public Societe update(Societe t) {
@@ -255,6 +269,7 @@ public class SocieteEtudiantServiceImpl implements SocieteEtudiantService {
             t.setVille(villeService.findOrSave(t.getVille()));
             t.setSecteurActivite(secteurActiviteService.findOrSave(t.getSecteurActivite()));
             t.setPays(paysService.findOrSave(t.getPays()));
+            t.setDomaine(domaineService.findOrSave(t.getDomaine()));
         }
     }
 
@@ -292,6 +307,8 @@ public class SocieteEtudiantServiceImpl implements SocieteEtudiantService {
     private VilleEtudiantService villeService ;
     @Autowired
     private PaysEtudiantService paysService ;
+    @Autowired
+    private DomaineEncadrantService domaineService;
 
     private @Autowired SocieteDao dao;
 

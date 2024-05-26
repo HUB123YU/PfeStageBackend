@@ -1,6 +1,7 @@
 package ma.zs.stocky.service.impl.encadrant.societe;
 
 
+import ma.zs.stocky.service.facade.encadrant.departement.DomaineEncadrantService;
 import ma.zs.stocky.zynerator.exception.EntityNotFoundException;
 import ma.zs.stocky.bean.core.societe.Societe;
 import ma.zs.stocky.dao.criteria.core.societe.SocieteCriteria;
@@ -148,6 +149,19 @@ public class SocieteEncadrantServiceImpl implements SocieteEncadrantService {
     public long countByPaysReference(String reference){
         return dao.countByPaysReference(reference);
     }
+    public List<Societe> findByDomaineId(Long id) {
+        return dao.findByDomaineId(id);
+    }
+
+
+    public int deleteByDomaineId(Long id) {
+        return dao.deleteByDomaineId(id);
+    }
+
+
+    public long countByDomaineId(Long id) {
+        return dao.countByDomaineId(id);
+    }
 
 	public boolean deleteById(Long id) {
         boolean condition = deleteByIdCheckCondition(id);
@@ -255,6 +269,7 @@ public class SocieteEncadrantServiceImpl implements SocieteEncadrantService {
             t.setVille(villeService.findOrSave(t.getVille()));
             t.setSecteurActivite(secteurActiviteService.findOrSave(t.getSecteurActivite()));
             t.setPays(paysService.findOrSave(t.getPays()));
+            t.setDomaine(domaineService.findOrSave(t.getDomaine()));
         }
     }
 
@@ -292,6 +307,8 @@ public class SocieteEncadrantServiceImpl implements SocieteEncadrantService {
     private VilleEncadrantService villeService ;
     @Autowired
     private PaysEncadrantService paysService ;
+    @Autowired
+    private DomaineEncadrantService domaineService;
 
     private @Autowired SocieteDao dao;
 

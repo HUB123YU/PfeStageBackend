@@ -26,6 +26,7 @@ import ma.zs.stocky.ws.dto.departement.DomaineDto;
 public class StageDto  extends AuditBaseDto {
 
     private String sujet  ;
+    private String reference;
     private String description  ;
     private String dateDebut ;
     private String dateFin ;
@@ -92,6 +93,15 @@ public class StageDto  extends AuditBaseDto {
     }
     public void setLieu(String lieu){
         this.lieu = lieu;
+    }
+
+    @Log
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     @Log

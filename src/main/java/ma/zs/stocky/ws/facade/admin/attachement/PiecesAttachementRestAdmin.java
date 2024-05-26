@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -38,8 +40,16 @@ import ma.zs.stocky.zynerator.dto.FileTempDto;
 @RequestMapping("/api/admin/piecesAttachement/")
 public class PiecesAttachementRestAdmin {
 
+    /*@PostMapping("import")
+    public ResponseEntity<Void> importPdf(@RequestParam("nom") String nom, @RequestParam("file") MultipartFile file) {
+        try {
+            service.importPdf(nom, file.getResource().getFile().getAbsolutePath());
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (IOException e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 
-
+    }*/
 
     @Operation(summary = "Finds a list of all piecesAttachements")
     @GetMapping("")

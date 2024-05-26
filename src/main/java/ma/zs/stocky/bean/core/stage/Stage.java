@@ -33,7 +33,8 @@ import java.math.BigDecimal;
 public class Stage  extends BaseEntity     {
 
     private Long id;
-
+    @Column(length = 500)
+    private String reference;
 
 
     @Column(length = 500)
@@ -70,9 +71,16 @@ public class Stage  extends BaseEntity     {
         super();
     }
 
+    public Stage(Long id,String reference){
+        this.id = id;
+        this.reference= reference ;
+    }
 
-
-
+    @Transient
+    public String getLabel() {
+        label = reference;
+        return label;
+    }
 
     @Id
     @Column(name = "id")
@@ -83,6 +91,15 @@ public class Stage  extends BaseEntity     {
     public void setId(Long id){
         this.id = id;
     }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
     public String getSujet(){
         return this.sujet;
     }

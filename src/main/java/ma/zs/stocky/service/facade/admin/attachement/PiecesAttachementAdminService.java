@@ -1,5 +1,6 @@
 package ma.zs.stocky.service.facade.admin.attachement;
 
+import java.io.IOException;
 import java.util.List;
 import ma.zs.stocky.bean.core.attachement.PiecesAttachement;
 import ma.zs.stocky.dao.criteria.core.attachement.PiecesAttachementCriteria;
@@ -23,6 +24,9 @@ public interface PiecesAttachementAdminService {
 
 
 	PiecesAttachement create(PiecesAttachement t);
+
+
+    //void importPdf(String nom, String path);
 
     PiecesAttachement update(PiecesAttachement t);
 

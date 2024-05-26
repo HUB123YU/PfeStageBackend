@@ -1,14 +1,17 @@
 package ma.zs.stocky.service.impl.admin.stage;
 
 
+import ma.zs.stocky.bean.core.encadrant.EncadrantInterne;
+import ma.zs.stocky.dao.facade.core.encadrant.EncadrantInterneDao;
+import ma.zs.stocky.dao.facade.core.stage.StageEncadrantInterneDao;
 import ma.zs.stocky.zynerator.exception.EntityNotFoundException;
 import ma.zs.stocky.bean.core.stage.Stage;
 import ma.zs.stocky.dao.criteria.core.stage.StageCriteria;
 import ma.zs.stocky.dao.facade.core.stage.StageDao;
 import ma.zs.stocky.dao.specification.core.stage.StageSpecification;
 import ma.zs.stocky.service.facade.admin.stage.StageAdminService;
-import ma.zs.stocky.zynerator.service.AbstractServiceImpl;
 import ma.zs.stocky.zynerator.util.ListUtil;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.ArrayList;
@@ -25,13 +28,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zs.stocky.service.facade.admin.societe.SocieteAdminService ;
-import ma.zs.stocky.bean.core.societe.Societe ;
 import ma.zs.stocky.service.facade.admin.stage.StageEtudiantAdminService ;
 import ma.zs.stocky.bean.core.stage.StageEtudiant ;
 import ma.zs.stocky.service.facade.admin.jury.JuryAdminService ;
-import ma.zs.stocky.bean.core.jury.Jury ;
 import ma.zs.stocky.service.facade.admin.departement.FiliereAdminService ;
-import ma.zs.stocky.bean.core.departement.Filiere ;
 import ma.zs.stocky.service.facade.admin.stage.StageEncadrantExterneAdminService ;
 import ma.zs.stocky.bean.core.stage.StageEncadrantExterne ;
 import ma.zs.stocky.service.facade.admin.stage.StagePiecesAttachementAdminService ;
@@ -39,14 +39,10 @@ import ma.zs.stocky.bean.core.stage.StagePiecesAttachement ;
 import ma.zs.stocky.service.facade.admin.stage.StageEncadrantInterneAdminService ;
 import ma.zs.stocky.bean.core.stage.StageEncadrantInterne ;
 import ma.zs.stocky.service.facade.admin.stage.TypeStageAdminService ;
-import ma.zs.stocky.bean.core.stage.TypeStage ;
 import ma.zs.stocky.service.facade.admin.departement.DomaineAdminService ;
-import ma.zs.stocky.bean.core.departement.Domaine ;
 
-import java.util.List;
 @Service
 public class StageAdminServiceImpl implements StageAdminService {
-
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public Stage update(Stage t) {
@@ -399,6 +395,8 @@ public class StageAdminServiceImpl implements StageAdminService {
     private DomaineAdminService domaineService ;
 
     private @Autowired StageDao dao;
+    private @Autowired EncadrantInterneDao encadrantInterneDao;
+    private @Autowired StageEncadrantInterneDao stageEncadrantInterneDao;
 
 
 }

@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface SocieteEncadrantService {
 
-
+    List<Societe> findByDomaineId(Long id);
+    int deleteByDomaineId(Long id);
+    long countByDomaineId(Long id);
 
     List<Societe> findByVilleId(Long id);
     int deleteByVilleId(Long id);

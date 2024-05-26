@@ -7,9 +7,11 @@ import ma.zs.stocky.dao.criteria.core.attachement.PiecesAttachementCriteria;
 import ma.zs.stocky.dao.facade.core.attachement.PiecesAttachementDao;
 import ma.zs.stocky.dao.specification.core.attachement.PiecesAttachementSpecification;
 import ma.zs.stocky.service.facade.admin.attachement.PiecesAttachementAdminService;
-import ma.zs.stocky.zynerator.service.AbstractServiceImpl;
-import ma.zs.stocky.zynerator.util.ListUtil;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.data.domain.PageRequest;
@@ -25,11 +27,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zs.stocky.service.facade.admin.attachement.TypePiecesAttachementAdminService ;
-import ma.zs.stocky.bean.core.attachement.TypePiecesAttachement ;
 import ma.zs.stocky.service.facade.admin.stage.StageAdminService ;
-import ma.zs.stocky.bean.core.stage.Stage ;
 
-import java.util.List;
 @Service
 public class PiecesAttachementAdminServiceImpl implements PiecesAttachementAdminService {
 

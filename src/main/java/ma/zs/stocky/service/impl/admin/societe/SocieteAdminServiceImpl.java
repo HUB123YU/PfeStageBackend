@@ -1,6 +1,7 @@
 package ma.zs.stocky.service.impl.admin.societe;
 
 
+import ma.zs.stocky.service.facade.admin.departement.DomaineAdminService;
 import ma.zs.stocky.zynerator.exception.EntityNotFoundException;
 import ma.zs.stocky.bean.core.societe.Societe;
 import ma.zs.stocky.dao.criteria.core.societe.SocieteCriteria;
@@ -149,7 +150,22 @@ public class SocieteAdminServiceImpl implements SocieteAdminService {
         return dao.countByPaysReference(reference);
     }
 
-	public boolean deleteById(Long id) {
+
+    public List<Societe> findByDomaineId(Long id) {
+        return dao.findByDomaineId(id);
+    }
+
+
+    public int deleteByDomaineId(Long id) {
+        return dao.deleteByDomaineId(id);
+    }
+
+
+    public long countByDomaineId(Long id) {
+        return dao.countByDomaineId(id);
+    }
+
+    public boolean deleteById(Long id) {
         boolean condition = deleteByIdCheckCondition(id);
         if (condition) {
             dao.deleteById(id);
@@ -255,6 +271,7 @@ public class SocieteAdminServiceImpl implements SocieteAdminService {
             t.setVille(villeService.findOrSave(t.getVille()));
             t.setSecteurActivite(secteurActiviteService.findOrSave(t.getSecteurActivite()));
             t.setPays(paysService.findOrSave(t.getPays()));
+            t.setDomaine(domaineService.findOrSave(t.getDomaine()));
         }
     }
 
@@ -292,6 +309,8 @@ public class SocieteAdminServiceImpl implements SocieteAdminService {
     private VilleAdminService villeService ;
     @Autowired
     private PaysAdminService paysService ;
+    @Autowired
+    private DomaineAdminService domaineService;
 
     private @Autowired SocieteDao dao;
 

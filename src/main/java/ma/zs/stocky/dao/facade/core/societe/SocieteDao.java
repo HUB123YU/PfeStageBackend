@@ -12,6 +12,9 @@ import java.util.List;
 public interface SocieteDao extends AbstractRepository<Societe,Long>  {
     Societe findByIce(String ice);
     int deleteByIce(String ice);
+    List<Societe> findByDomaineId(Long id);
+    int deleteByDomaineId(Long id);
+    long countByDomaineId(Long id);
 
     List<Societe> findByVilleId(Long id);
     int deleteByVilleId(Long id);

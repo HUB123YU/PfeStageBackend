@@ -1,11 +1,14 @@
 package ma.zs.stocky.service.facade.admin.stage;
 
 import java.util.List;
+
+import ma.zs.stocky.bean.core.encadrant.EncadrantInterne;
 import ma.zs.stocky.bean.core.stage.Stage;
 import ma.zs.stocky.dao.criteria.core.stage.StageCriteria;
 import ma.zs.stocky.zynerator.service.IService;
 
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface StageAdminService {
@@ -32,6 +35,8 @@ public interface StageAdminService {
 
 
 	Stage create(Stage t);
+
+
 
     Stage update(Stage t);
 

@@ -3,9 +3,7 @@ package ma.zs.stocky.bean.core.societe;
 import java.util.Objects;
 
 
-
-
-
+import ma.zs.stocky.bean.core.departement.Domaine;
 import ma.zs.stocky.bean.core.departement.SecteurActivite;
 import ma.zs.stocky.bean.core.appartenance.Ville;
 import ma.zs.stocky.bean.core.appartenance.Pays;
@@ -38,8 +36,8 @@ public class Societe  extends BaseEntity     {
     @Column(length = 500)
     private String fax;
 
-    @Column(length = 500)
-    private String domaine;
+
+    private Domaine domaine;
 
     @Column(length = 500)
     private String email;
@@ -103,10 +101,12 @@ public class Societe  extends BaseEntity     {
     public void setFax(String fax){
         this.fax = fax;
     }
-    public String getDomaine(){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "domaine")
+    public Domaine getDomaine(){
         return this.domaine;
     }
-    public void setDomaine(String domaine){
+    public void setDomaine(Domaine domaine){
         this.domaine = domaine;
     }
     @ManyToOne(fetch = FetchType.LAZY)

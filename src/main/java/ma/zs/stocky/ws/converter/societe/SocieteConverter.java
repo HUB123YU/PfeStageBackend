@@ -1,5 +1,6 @@
 package  ma.zs.stocky.ws.converter.societe;
 
+import ma.zs.stocky.ws.converter.departement.DomaineConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.BeanUtils;
@@ -29,9 +30,12 @@ public class SocieteConverter {
     private VilleConverter villeConverter ;
     @Autowired
     private PaysConverter paysConverter ;
+    @Autowired
+    DomaineConverter domaineConverter;
     private boolean ville;
     private boolean secteurActivite;
     private boolean pays;
+    private boolean domaine;
 
     public  SocieteConverter() {
         initObject(true);
@@ -53,8 +57,7 @@ public class SocieteConverter {
                 item.setAdresse(dto.getAdresse());
             if(StringUtil.isNotEmpty(dto.getFax()))
                 item.setFax(dto.getFax());
-            if(StringUtil.isNotEmpty(dto.getDomaine()))
-                item.setDomaine(dto.getDomaine());
+
             if(StringUtil.isNotEmpty(dto.getEmail()))
                 item.setEmail(dto.getEmail());
             if(StringUtil.isNotEmpty(dto.getTelephone()))
@@ -69,8 +72,8 @@ public class SocieteConverter {
 
             if(this.pays && dto.getPays()!=null)
                 item.setPays(paysConverter.toItem(dto.getPays())) ;
-
-
+            if (this.domaine && dto.getDomaine()!=null)
+                item.setDomaine(domaineConverter.toItem(dto.getDomaine()));
 
 
         return item;
@@ -93,8 +96,6 @@ public class SocieteConverter {
                 dto.setAdresse(item.getAdresse());
             if(StringUtil.isNotEmpty(item.getFax()))
                 dto.setFax(item.getFax());
-            if(StringUtil.isNotEmpty(item.getDomaine()))
-                dto.setDomaine(item.getDomaine());
             if(StringUtil.isNotEmpty(item.getEmail()))
                 dto.setEmail(item.getEmail());
             if(StringUtil.isNotEmpty(item.getTelephone()))
@@ -103,6 +104,8 @@ public class SocieteConverter {
                 dto.setCodePostal(item.getCodePostal());
             if(this.ville && item.getVille()!=null) {
                 dto.setVille(villeConverter.toDto(item.getVille())) ;
+                if (this.domaine && item.getDomaine()!=null)
+                    dto.setDomaine(domaineConverter.toDto(item.getDomaine()));
 
             }
             if(this.secteurActivite && item.getSecteurActivite()!=null) {

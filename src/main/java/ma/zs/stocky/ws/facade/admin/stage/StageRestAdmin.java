@@ -1,10 +1,15 @@
 package  ma.zs.stocky.ws.facade.admin.stage;
 
+import com.linecorp.armeria.server.annotation.Path;
+import com.linecorp.armeria.server.annotation.Post;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import ma.zs.stocky.bean.core.encadrant.EncadrantInterne;
+import ma.zs.stocky.ws.converter.encadrant.EncadrantInterneConverter;
+import ma.zs.stocky.ws.dto.encadrant.EncadrantInterneDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -37,8 +42,6 @@ import ma.zs.stocky.zynerator.dto.FileTempDto;
 @RestController
 @RequestMapping("/api/admin/stage/")
 public class StageRestAdmin {
-
-
 
 
     @Operation(summary = "Finds a list of all stages")

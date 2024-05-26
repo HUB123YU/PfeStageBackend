@@ -1,6 +1,7 @@
 package  ma.zs.stocky.dao.criteria.core.societe;
 
 
+import ma.zs.stocky.dao.criteria.core.departement.DomaineCriteria;
 import ma.zs.stocky.dao.criteria.core.departement.SecteurActiviteCriteria;
 import ma.zs.stocky.dao.criteria.core.appartenance.VilleCriteria;
 import ma.zs.stocky.dao.criteria.core.appartenance.PaysCriteria;
@@ -18,14 +19,14 @@ public class SocieteCriteria extends  BaseCriteria  {
     private String adresseLike;
     private String fax;
     private String faxLike;
-    private String domaine;
-    private String domaineLike;
     private String email;
     private String emailLike;
     private String telephone;
     private String telephoneLike;
     private String codePostal;
     private String codePostalLike;
+    private DomaineCriteria domaine;
+    private List<DomaineCriteria> domaines;
 
     private VilleCriteria ville ;
     private List<VilleCriteria> villes ;
@@ -89,17 +90,20 @@ public class SocieteCriteria extends  BaseCriteria  {
         this.faxLike = faxLike;
     }
 
-    public String getDomaine(){
-        return this.domaine;
+    public DomaineCriteria getDomaine() {
+        return domaine;
     }
-    public void setDomaine(String domaine){
+
+    public void setDomaine(DomaineCriteria domaine) {
         this.domaine = domaine;
     }
-    public String getDomaineLike(){
-        return this.domaineLike;
+
+    public List<DomaineCriteria> getDomaines() {
+        return domaines;
     }
-    public void setDomaineLike(String domaineLike){
-        this.domaineLike = domaineLike;
+
+    public void setDomaines(List<DomaineCriteria> domaines) {
+        this.domaines = domaines;
     }
 
     public String getEmail(){

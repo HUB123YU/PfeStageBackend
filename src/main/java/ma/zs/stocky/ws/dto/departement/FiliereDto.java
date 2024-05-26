@@ -13,7 +13,6 @@ public class FiliereDto  extends AuditBaseDto {
 
     private String code  ;
     private String libelle  ;
-
     private DepartementDto departement ;
 
 

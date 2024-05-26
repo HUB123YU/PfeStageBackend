@@ -83,6 +83,8 @@ public class StageConverter {
         Stage item = new Stage();
             if(StringUtil.isNotEmpty(dto.getId()))
                 item.setId(dto.getId());
+            if(StringUtil.isNotEmpty(dto.getReference()))
+                item.setReference(dto.getReference());
             if(StringUtil.isNotEmpty(dto.getSujet()))
                 item.setSujet(dto.getSujet());
             if(StringUtil.isNotEmpty(dto.getDescription()))
@@ -140,6 +142,8 @@ public class StageConverter {
             StageDto dto = new StageDto();
             if(StringUtil.isNotEmpty(item.getId()))
                 dto.setId(item.getId());
+            if(StringUtil.isNotEmpty(item.getReference()))
+                dto.setReference(item.getReference());
             if(StringUtil.isNotEmpty(item.getSujet()))
                 dto.setSujet(item.getSujet());
             if(StringUtil.isNotEmpty(item.getDescription()))

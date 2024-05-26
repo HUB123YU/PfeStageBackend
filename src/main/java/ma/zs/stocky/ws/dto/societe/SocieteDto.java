@@ -1,5 +1,6 @@
 package  ma.zs.stocky.ws.dto.societe;
 
+import ma.zs.stocky.ws.dto.departement.DomaineDto;
 import ma.zs.stocky.zynerator.audit.Log;
 import ma.zs.stocky.zynerator.dto.AuditBaseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,7 +19,7 @@ public class SocieteDto  extends AuditBaseDto {
     private String nom  ;
     private String adresse  ;
     private String fax  ;
-    private String domaine  ;
+    private DomaineDto domaine  ;
     private String email  ;
     private String telephone  ;
     private String codePostal  ;
@@ -67,11 +68,11 @@ public class SocieteDto  extends AuditBaseDto {
         this.fax = fax;
     }
 
-    @Log
-    public String getDomaine(){
+
+    public DomaineDto getDomaine(){
         return this.domaine;
     }
-    public void setDomaine(String domaine){
+    public void setDomaine(DomaineDto domaine){
         this.domaine = domaine;
     }
 

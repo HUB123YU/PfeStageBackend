@@ -192,6 +192,7 @@ public class StageEncadrantInterneAdminServiceImpl implements StageEncadrantInte
         return saved;
     }
 
+
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public List<StageEncadrantInterne> create(List<StageEncadrantInterne> ts) {
         List<StageEncadrantInterne> result = new ArrayList<>();
