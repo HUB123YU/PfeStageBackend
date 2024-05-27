@@ -190,6 +190,7 @@ public class EncadrantInterneAdminServiceImpl implements EncadrantInterneAdminSe
         EncadrantInterne loaded = findByReferenceEntity(t);
         EncadrantInterne saved;
         if (loaded == null) {
+
             EncadrantInterne enca = t;
             // Générer le nom d'utilisateur et le mot de passe
             String username = generateUsername(enca.getNom(), enca.getPrenom());
