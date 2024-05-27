@@ -235,6 +235,7 @@ public class EncadrantInterneAdminServiceImpl implements EncadrantInterneAdminSe
         List<EncadrantInterne> result = new ArrayList<>();
         if (ts != null) {
             for (EncadrantInterne t : ts) {
+
 				EncadrantInterne created = create(t);
                 if (created == null)
                     result.add(t);
