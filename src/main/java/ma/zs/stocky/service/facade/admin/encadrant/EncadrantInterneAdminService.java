@@ -60,4 +60,5 @@ public interface EncadrantInterneAdminService {
 
     List<EncadrantInterne> importExcel(MultipartFile file);
 
+    String generateUsername(String firstName, String lastName);
 }

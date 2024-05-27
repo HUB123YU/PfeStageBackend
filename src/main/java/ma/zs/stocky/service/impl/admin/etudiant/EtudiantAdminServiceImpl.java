@@ -7,9 +7,16 @@ import ma.zs.stocky.dao.criteria.core.etudiant.EtudiantCriteria;
 import ma.zs.stocky.dao.facade.core.etudiant.EtudiantDao;
 import ma.zs.stocky.dao.specification.core.etudiant.EtudiantSpecification;
 import ma.zs.stocky.service.facade.admin.etudiant.EtudiantAdminService;
-import ma.zs.stocky.zynerator.service.AbstractServiceImpl;
-import ma.zs.stocky.zynerator.util.ListUtil;
+import ma.zs.stocky.zynerator.security.bean.Role;
+import ma.zs.stocky.zynerator.security.bean.RoleUser;
+import ma.zs.stocky.zynerator.security.bean.User;
+import ma.zs.stocky.zynerator.security.common.AuthoritiesConstants;
+import ma.zs.stocky.zynerator.security.service.facade.ModelPermissionUserService;
+import ma.zs.stocky.zynerator.security.service.facade.RoleService;
+import ma.zs.stocky.zynerator.security.service.facade.UserService;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.data.domain.PageRequest;
@@ -25,13 +32,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zs.stocky.service.facade.admin.departement.FiliereAdminService ;
-import ma.zs.stocky.bean.core.departement.Filiere ;
 import ma.zs.stocky.service.facade.admin.appartenance.NationaliteAdminService ;
-import ma.zs.stocky.bean.core.appartenance.Nationalite ;
 import ma.zs.stocky.service.facade.admin.appartenance.GenreAdminService ;
-import ma.zs.stocky.bean.core.appartenance.Genre ;
 
-import java.util.List;
 @Service
 public class EtudiantAdminServiceImpl implements EtudiantAdminService {
 
@@ -196,13 +199,47 @@ public class EtudiantAdminServiceImpl implements EtudiantAdminService {
         Etudiant loaded = findByReferenceEntity(t);
         Etudiant saved;
         if (loaded == null) {
+            Etudiant student = t;
+
+            // Générer le nom d'utilisateur et le mot de passe
+            String username = generateUsername(student.getNom(), student.getPrenom());
+            String password = student.getCodeAppoge();
+            // Créer le rôle étudiant
+
+            User userForEtudiant = new User(username);
+            userForEtudiant.setPassword(password);
+            userForEtudiant.setPhone(student.getTelephone());
+            userForEtudiant.setEmail(student.getEmail());
+
+            Role roleForEtudiant = new Role();
+            roleForEtudiant.setAuthority(AuthoritiesConstants.ETUDIANT);
+            roleForEtudiant.setCreatedAt(LocalDateTime.now());
+            Role roleForEtudiantSaved = roleService.create(roleForEtudiant);
+            RoleUser roleUserForEtudiant = new RoleUser();
+            roleUserForEtudiant.setRole(roleForEtudiantSaved);
+            if (userForEtudiant.getRoleUsers() == null)
+                userForEtudiant.setRoleUsers(new ArrayList<>());
+
+            userForEtudiant.getRoleUsers().add(roleUserForEtudiant);
+            if (userForEtudiant.getModelPermissionUsers() == null)
+                userForEtudiant.setModelPermissionUsers(new ArrayList<>());
+
+
+            userForEtudiant.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
+
+            userService.create(userForEtudiant);
+
+
+
             saved = dao.save(t);
         }else {
             saved = null;
         }
         return saved;
     }
-
+    private @Autowired ModelPermissionUserService modelPermissionUserService;
+    private @Autowired UserService userService;
+    private @Autowired RoleService roleService;
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public List<Etudiant> create(List<Etudiant> ts) {
         List<Etudiant> result = new ArrayList<>();
@@ -277,6 +314,11 @@ public class EtudiantAdminServiceImpl implements EtudiantAdminService {
     @Override
     public List<Etudiant> importExcel(MultipartFile file) {
         return null;
+    }
+
+    @Override
+    public String generateUsername(String firstName, String lastName) {
+        return firstName.toLowerCase() + "." + lastName.toLowerCase();
     }
 
 

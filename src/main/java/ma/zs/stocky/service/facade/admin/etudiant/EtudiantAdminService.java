@@ -63,4 +63,6 @@ public interface EtudiantAdminService {
 
     List<Etudiant> importExcel(MultipartFile file);
 
+    String generateUsername(String firstName, String lastName);
+
 }

@@ -1,15 +1,23 @@
 package ma.zs.stocky.service.impl.admin.encadrant;
 
 
+import ma.zs.stocky.bean.core.etudiant.Etudiant;
 import ma.zs.stocky.zynerator.exception.EntityNotFoundException;
 import ma.zs.stocky.bean.core.encadrant.EncadrantInterne;
 import ma.zs.stocky.dao.criteria.core.encadrant.EncadrantInterneCriteria;
 import ma.zs.stocky.dao.facade.core.encadrant.EncadrantInterneDao;
 import ma.zs.stocky.dao.specification.core.encadrant.EncadrantInterneSpecification;
 import ma.zs.stocky.service.facade.admin.encadrant.EncadrantInterneAdminService;
-import ma.zs.stocky.zynerator.service.AbstractServiceImpl;
-import ma.zs.stocky.zynerator.util.ListUtil;
+import ma.zs.stocky.zynerator.security.bean.Role;
+import ma.zs.stocky.zynerator.security.bean.RoleUser;
+import ma.zs.stocky.zynerator.security.bean.User;
+import ma.zs.stocky.zynerator.security.common.AuthoritiesConstants;
+import ma.zs.stocky.zynerator.security.service.facade.ModelPermissionUserService;
+import ma.zs.stocky.zynerator.security.service.facade.RoleService;
+import ma.zs.stocky.zynerator.security.service.facade.UserService;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.data.domain.PageRequest;
@@ -25,11 +33,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ma.zs.stocky.service.facade.admin.appartenance.NationaliteAdminService ;
-import ma.zs.stocky.bean.core.appartenance.Nationalite ;
 import ma.zs.stocky.service.facade.admin.appartenance.GenreAdminService ;
-import ma.zs.stocky.bean.core.appartenance.Genre ;
 
-import java.util.List;
 @Service
 public class EncadrantInterneAdminServiceImpl implements EncadrantInterneAdminService {
 
@@ -185,12 +190,45 @@ public class EncadrantInterneAdminServiceImpl implements EncadrantInterneAdminSe
         EncadrantInterne loaded = findByReferenceEntity(t);
         EncadrantInterne saved;
         if (loaded == null) {
+            EncadrantInterne enca = t;
+
+            // Générer le nom d'utilisateur et le mot de passe
+            String username = generateUsername(enca.getNom(), enca.getPrenom());
+            String password = enca.getCode();
+            // Créer le rôle encadrant
+            // User Encadrant
+            User userForEncadrant = new User(username);
+            userForEncadrant.setPassword(password);
+            userForEncadrant.setPhone(enca.getTelephone());
+            userForEncadrant.setEmail(enca.getEmail());
+            // Role Encadrant
+            Role roleForEncadrant = new Role();
+            roleForEncadrant.setAuthority(AuthoritiesConstants.ENCADRANT);
+            roleForEncadrant.setCreatedAt(LocalDateTime.now());
+            Role roleForEncadrantSaved = roleService.create(roleForEncadrant);
+            RoleUser roleUserForEncadrant = new RoleUser();
+            roleUserForEncadrant.setRole(roleForEncadrantSaved);
+            if (userForEncadrant.getRoleUsers() == null)
+                userForEncadrant.setRoleUsers(new ArrayList<>());
+
+            userForEncadrant.getRoleUsers().add(roleUserForEncadrant);
+            if (userForEncadrant.getModelPermissionUsers() == null)
+                userForEncadrant.setModelPermissionUsers(new ArrayList<>());
+
+
+            userForEncadrant.setModelPermissionUsers(modelPermissionUserService.initModelPermissionUser());
+
+            userService.create(userForEncadrant);
+
             saved = dao.save(t);
         }else {
             saved = null;
         }
         return saved;
     }
+    private @Autowired ModelPermissionUserService modelPermissionUserService;
+    private @Autowired UserService userService;
+    private @Autowired RoleService roleService;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public List<EncadrantInterne> create(List<EncadrantInterne> ts) {
@@ -265,6 +303,11 @@ public class EncadrantInterneAdminServiceImpl implements EncadrantInterneAdminSe
     @Override
     public List<EncadrantInterne> importExcel(MultipartFile file) {
         return null;
+    }
+
+    @Override
+    public String generateUsername(String firstName, String lastName) {
+        return firstName.toLowerCase() + "." + lastName.toLowerCase();
     }
 
 
