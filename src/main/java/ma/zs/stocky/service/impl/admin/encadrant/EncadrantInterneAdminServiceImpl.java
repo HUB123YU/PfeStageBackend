@@ -206,6 +206,7 @@ public class EncadrantInterneAdminServiceImpl implements EncadrantInterneAdminSe
             roleForEncadrant.setAuthority(AuthoritiesConstants.ENCADRANT);
             roleForEncadrant.setCreatedAt(LocalDateTime.now());
             Role roleForEncadrantSaved = roleService.create(roleForEncadrant);
+
             RoleUser roleUserForEncadrant = new RoleUser();
             roleUserForEncadrant.setRole(roleForEncadrantSaved);
             if (userForEncadrant.getRoleUsers() == null)
