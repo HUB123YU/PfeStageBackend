@@ -1,4 +1,4 @@
-# Use a lightweight Alpine OpenJDK runtime as a base image
+ # Use a lightweight Alpine OpenJDK runtime as a base image
 FROM openjdk:17-alpine
 
 # Copy the packaged JAR file from the build stage
@@ -9,3 +9,4 @@ EXPOSE 8036
 
 # Define the command to run the application
 CMD ["java", "-jar", "app.jar"]
+
